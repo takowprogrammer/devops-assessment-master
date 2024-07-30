@@ -63,7 +63,7 @@ jobs:
       #   sudo apt-get install -y docker-ce docker-ce-cli containerd.io
         
     - name: Check Docker version
-      needs: Install Docker
+      # needs: Install Docker
       run: docker version
 
     - name: Build Docker image
