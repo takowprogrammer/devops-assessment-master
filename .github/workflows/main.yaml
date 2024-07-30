@@ -20,7 +20,12 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
-
+    
+    - name: Install Maven
+      uses: stCarolas/setup-maven@v4.5
+      with:
+        maven-version: 3.8.6
+        
     - name: Build
       run: mvn compile
 
