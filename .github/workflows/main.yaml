@@ -1,0 +1,31 @@
+name: Devops Assessment
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: self-hosted
+    #container:
+    #  image: maven:3.6.3-jdk-11
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+
+    - name: Build
+      run: mvn compile
+
+    - name: Test
+      run: mvn test
+
+    - name: Run application
+      run: mvn exec:java
