@@ -1,0 +1,19 @@
+---
+- name: Deploy Java Application
+  hosts: localhost
+  tasks:
+    - name: Copy Docker image from GitHub artifacts
+      fetch:
+        src: /path/to/github/actions/artifacts/my-java-app.tar
+        dest: /tmp/my-java-app.tar
+        flat: yes
+
+    - name: Load Docker image
+      command: docker load -i /tmp/my-java-app.tar
+
+    - name: Remove existing container
+      command: docker rm -f my-java-app
+      ignore_errors: yes
+
+    - name: Run Docker container
+      command: docker run -d --name my-java-app -p 8080:8080 my-java-app:latest
