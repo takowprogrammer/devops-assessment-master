@@ -44,6 +44,7 @@ jobs:
              gnupg \
              lsb-release \
              dpkg
+        sudo apt-get -f install
 
     - name: Install Docker
      # uses: docker-practice/actions-setup-docker@master
