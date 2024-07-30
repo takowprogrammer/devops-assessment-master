@@ -67,7 +67,7 @@ jobs:
       run: docker version
 
     - name: Build Docker image
-      needs: Install Docker
+      # needs: Install Docker
       run: docker build -t devops-assessment:latest .
 
     - name: Save Docker image
