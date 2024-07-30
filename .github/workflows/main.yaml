@@ -25,7 +25,7 @@ jobs:
       uses: stCarolas/setup-maven@v4.5
       with:
         maven-version: 3.8.6
-        
+
     - name: Build
       run: mvn compile
 
@@ -34,3 +34,15 @@ jobs:
 
     - name: Run application
       run: mvn exec:java
+
+    - name: Build Docker image
+      run: docker build -t devops-assessment:latest .
+
+    - name: Save Docker image to
+      run: docker save devops-assessment:latest -o devops-assessmentv1.tar
+
+    - name: Upload Docker image to GitHub artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: takow-assessment
+        path: devops-assessmentv1.tar
