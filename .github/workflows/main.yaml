@@ -60,7 +60,7 @@ jobs:
         
         # Install Docker Engine
         sudo apt-get update
-        sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+        sudo apt-get install -y -f docker-ce docker-ce-cli containerd.io
         
     - name: Check Docker version
       # needs: Install Docker
