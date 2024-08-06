@@ -87,31 +87,58 @@ jobs:
     #   # needs: Install Docker
     #   run: docker version
 
+    - name: Install Docker Dependencies
+      run: |
+        # Update package lists
+        sudo apt-get update
+        
+        # Install required dependencies
+        sudo apt-get install -y \
+             apt-transport-https \
+             ca-certificates \
+             curl \
+             gnupg \
+             lsb-release
+        
     - name: Install Docker
       run: |
+        # Add Docker's official GPG key
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+        
+        # Set up the Docker repository
+        echo \
+          "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+          $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+        
         # Install Docker
         sudo apt-get update
-        curl -fsSL https://get.docker.com -o get-docker.sh
-        sudo sh get-docker.sh
-        #Add current user to the docker group
-        #sudo usermod -aG docker $USER
-
-    # - name: Build Docker Image
-    #   run: |
-    #    sudo docker build -t devops_assessment:latest .
-    #   env:
-    #     DOCKER_HOST: unix:///var/run/docker.sock
+        sudo apt-get install -y docker-ce docker-ce-cli containerd.io
         
-    # - name: Push Docker Image
-    #   run: |
-    #    sudo docker push devops_assessment:latest
-    #   env:
-    #     DOCKER_HOST: unix:///var/run/docker.sock
-
+        # Add current user to the docker group
+        sudo usermod -aG docker $USER
+        
+        # Verify Docker installation
+        docker version
+        
     - name: Start Docker Daemon
       run: |
         # Start the Docker daemon
-        sudo systemctl start docker
+        sudo /etc/init.d/docker start
+
+    # - name: Install Docker
+    #   run: |
+    #     # Install Docker
+    #     sudo apt-get update
+    #     curl -fsSL https://get.docker.com -o get-docker.sh
+    #     sudo sh get-docker.sh
+    #     #Add current user to the docker group
+    #     #sudo usermod -aG docker $USER
+
+
+    # - name: Start Docker Daemon
+    #   run: |
+    #     # Start the Docker daemon
+    #     sudo systemctl start docker
 
     - name: Set up Docker Build Action
       uses: docker/setup-buildx-action@v3
