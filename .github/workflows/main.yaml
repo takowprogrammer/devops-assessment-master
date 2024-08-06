@@ -5,6 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
+  context:
   build:
 
     runs-on: self-hosted
@@ -166,9 +167,9 @@ jobs:
           password: "${{ secrets.DOCKER_PASSWORD }}"
           tag: devops_assessment:latest
 
-    outputs:
-      image: ${{ steps.build.outputs.image }}
-      tag: ${{ steps.build.outputs.tag }}
+    # outputs:
+    #   image: ${{ steps.build.outputs.image }}
+    #   tag: ${{ steps.build.outputs.tag }}
 
     - name: Set up python for Ansible
       uses: actions/setup-python@v4
