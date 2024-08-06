@@ -135,15 +135,21 @@ jobs:
     #     # Start the Docker daemon
     #     sudo systemctl start docker
 
-    - name: Set up Docker Build Action
-      uses: docker/setup-buildx-action@v3
+    # - name: Set up Docker Build Action
+    #   uses: docker/setup-buildx-action@v3
 
-    - name: Build image
-      uses: docker/build-push-action@v5
-      with: 
-        context: .
-        tags: devops_assessment:latest
-        push: false
+    # - name: Build image
+    #   uses: docker/build-push-action@v5
+    #   with: 
+    #     context: .
+    #     tags: devops_assessment:latest
+    #     push: false
+    
+    - name: Build Docker Image
+      run: |
+        # Build the Docker image
+        docker buildx create --name builder --driver docker-container --use
+        docker buildx build -t devops_assessment:latest .
 
     - name: Set up python for Ansible
       uses: actions/setup-python@v4
