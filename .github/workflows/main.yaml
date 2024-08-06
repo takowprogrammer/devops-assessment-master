@@ -96,27 +96,27 @@ jobs:
         #Add current user to the docker group
         #sudo usermod -aG docker $USER
 
-    - name: Build Docker Image
-      run: |
-       sudo docker build -t devops_assessment:latest .
-      env:
-        DOCKER_HOST: unix:///var/run/docker.sock
+    # - name: Build Docker Image
+    #   run: |
+    #    sudo docker build -t devops_assessment:latest .
+    #   env:
+    #     DOCKER_HOST: unix:///var/run/docker.sock
         
-    - name: Push Docker Image
-      run: |
-       sudo docker push devops_assessment:latest
-      env:
-        DOCKER_HOST: unix:///var/run/docker.sock
+    # - name: Push Docker Image
+    #   run: |
+    #    sudo docker push devops_assessment:latest
+    #   env:
+    #     DOCKER_HOST: unix:///var/run/docker.sock
 
-    # - name: Set up Docker Build Action
-    #   uses: docker/setup-buildx-action@v3
+    - name: Set up Docker Build Action
+      uses: docker/setup-buildx-action@v3
 
-    # - name: Build image
-    #   uses: docker/build-push-action@v5
-    #   with: 
-    #     context: .
-    #     tags: devops_assessment:latest
-    #     push: false
+    - name: Build image
+      uses: docker/build-push-action@v5
+      with: 
+        context: .
+        tags: devops_assessment:latest
+        push: false
 
     - name: Set up python for Ansible
       uses: actions/setup-python@v4
