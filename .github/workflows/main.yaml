@@ -48,10 +48,10 @@ jobs:
     #     # Verify Docker installation
     #     docker version
      
-     - name: Start Docker Daemon
-       run: |
-        # Start the Docker daemon
-        sudo /etc/init.d/docker start
+    #  - name: Start Docker Daemon
+    #    run: |
+    #     # Start the Docker daemon
+    #     sudo /etc/init.d/docker start
      
     #  - name: hello world
     #    run: |
