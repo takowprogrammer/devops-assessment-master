@@ -156,12 +156,19 @@ jobs:
     #     docker buildx create --name builder --driver docker-container --use
     #     docker buildx build -t devops_assessment:latest .
 
-    - name: Build and Push Container to docker.io
-      uses: GlueOps/github-actions-build-push-containers@v0.3.7
+    - name: Build
+      uses: cloudposse/github-action-docker-build-push@main
       with:
-          registry: "registry.hub.docker.com"
-          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
-          dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          registry: registry.hub.docker.com
+          organization: "${{ github.event.repository.owner.login }}"
+          repository: "${{ github.event.repository.name }}"
+          login: "${{ secrets.DOCKER_USERNAME }}"
+          password: "${{ secrets.DOCKER_PASSWORD }}"
+          tag: devops_assessment:latest
+
+    outputs:
+      image: ${{ steps.build.outputs.image }}
+      tag: ${{ steps.build.outputs.tag }}
 
     - name: Set up python for Ansible
       uses: actions/setup-python@v4
