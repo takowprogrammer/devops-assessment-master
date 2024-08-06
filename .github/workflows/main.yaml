@@ -51,6 +51,7 @@ jobs:
      - name: Start Docker Daemon
        run: |
         # Start the Docker daemon
+        sudo usermod -aG docker $USER
         sudo /etc/init.d/docker start
      
      - name: hello world
