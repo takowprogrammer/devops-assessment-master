@@ -92,13 +92,13 @@ jobs:
     
     - name: Build Docker Image
       run: |
-        docker build -t devops_assessment:latest .
+       sudo docker build -t devops_assessment:latest .
       env:
         DOCKER_HOST: unix:///var/run/docker.sock
         
     - name: Push Docker Image
       run: |
-        docker push devops_assessment:latest
+       sudo docker push devops_assessment:latest
       env:
         DOCKER_HOST: unix:///var/run/docker.sock
 
