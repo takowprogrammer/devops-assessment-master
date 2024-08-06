@@ -87,6 +87,9 @@ jobs:
     #   # needs: Install Docker
     #   run: docker version
     
+    - name: Check Docker daemon user
+        run: ps aux | grep dockerd | grep root
+        
     - name: Set up Docker
       uses: crazy-max/ghaction-setup-docker@v3
     
