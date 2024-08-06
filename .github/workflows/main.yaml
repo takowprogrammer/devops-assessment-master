@@ -40,74 +40,7 @@ jobs:
 
     - name: Run application
       run: mvn exec:java
-    
-    # - name: Install dpkg
-    #   run: |
-    #     sudo apt-get update
-    #     sudo apt-get install -y \
-    #          ca-certificates \
-    #          curl \
-    #          gnupg \
-    #          lsb-release \
-    #          dpkg
-    #     sudo dpkg --configure -a
-    #     sudo apt-get -f install
         
-
-    # - name: Install Docker
-    #  # uses: docker-practice/actions-setup-docker@master
-    #   if: failure()
-    #   run: |
-    #     # Update the package index
-    #     sudo apt-get update
-        
-    #     # Install packages to allow apt to use a repository over HTTPS
-    #     sudo apt-get install -y \
-    #         apt-transport-https \
-    #         ca-certificates \
-        #     curl \
-        #     gnupg \
-        #     lsb-release
-        
-        # # Add Docker's official GPG key
-        # curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-        
-        # # Set up the stable repository
-        # echo \
-        #   "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-        #   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-        
-        # # Install Docker Engine
-        # sudo apt remove docker-ce
-        # sudo apt autoremove
-        # sudo apt-get update
-        # sudo apt-get install -y -f docker-ce docker-ce-cli containerd.io
-        
-    # - name: Check Docker version
-    #   # needs: Install Docker
-    #   run: docker version
-
-    # - name: Install Docker Dependencies
-    #   run: |
-    #     # Update package lists
-    #     sudo apt-get update
-        
-    #     # Install required dependencies
-    #     sudo apt-get install -y \
-    #          apt-transport-https \
-    #          ca-certificates \
-    #          curl \
-    #          gnupg \
-    #          lsb-release
-        
-    # - name: Install Docker
-    #   run: |
-    #     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-    #     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-        
-    #     # Install Docker
-    #     sudo apt-get update
-    #     sudo apt-get install -y docker-ce docker-ce-cli containerd.io
         
     #     # Add current user to the docker group
     #     #sudo usermod -aG docker $USER
@@ -120,57 +53,21 @@ jobs:
         # Start the Docker daemon
         sudo /etc/init.d/docker start
 
-    # - name: Install Docker
-    #   run: |
-    #     # Install Docker
-    #     sudo apt-get update
-    #     curl -fsSL https://get.docker.com -o get-docker.sh
-    #     sudo sh get-docker.sh
-    #     #Add current user to the docker group
-    #     #sudo usermod -aG docker $USER
-
-
-    # - name: Start Docker Daemon
-    #   run: |
-    #     # Start the Docker daemon
-    #     sudo systemctl start docker
-
-    # - name: Set up Docker Build Action
-    #   uses: docker/setup-buildx-action@v3
-
-    # - name: Build image
-    #   uses: docker/build-push-action@v5
-    #   with: 
-    #     context: .
-    #     tags: devops_assessment:latest
-    #     push: false
-
-    # - name: Check Docker Status
-    #   run: |
-    #     # Check if the Docker daemon is running
-    #     sudo systemctl status docker
-    
-    # - name: Build Docker Image
-    #   run: |
-    #     # Build the Docker image
-    #     docker buildx create --name builder --driver docker-container --use
-    #     docker buildx build -t devops_assessment:latest .
 
     - name: Build
       uses: cloudposse/github-action-docker-build-push@main
       with:
-          registry: registry.hub.docker.com
-          organization: "${{ github.event.repository.owner.login }}"
-          repository: "${{ github.event.repository.name }}"
-          login: "${{ secrets.DOCKER_USERNAME }}"
-          password: "${{ secrets.DOCKER_PASSWORD }}"
-          tag: devops_assessment:latest
+        registry: registry.hub.docker.com
+        organization: "${{ github.event.repository.owner.login }}"
+        repository: "${{ github.event.repository.name }}"
+        login: "${{ secrets.DOCKER_USERNAME }}"
+        password: "${{ secrets.DOCKER_PASSWORD }}"
 
     # outputs:
-    #   image: ${{ steps.build.outputs.image }}
-    #   tag: ${{ steps.build.outputs.tag }}
+    #    image: ${{ steps.build.outputs.image }}
+    #    tag: ${{ steps.build.outputs.tag }}
 
-    - name: Set up python for Ansible
+  - name: Set up python for Ansible
       uses: actions/setup-python@v4
       with:
         python-version: '3.x'
