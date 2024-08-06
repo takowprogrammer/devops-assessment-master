@@ -159,7 +159,7 @@ jobs:
     - name: Build and Push Container to docker.io
       uses: GlueOps/github-actions-build-push-containers@v0.3.7
       with:
-          registry: "docker.io"
+          registry: "registry.hub.docker.com"
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
