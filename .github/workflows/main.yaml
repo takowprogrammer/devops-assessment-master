@@ -144,6 +144,11 @@ jobs:
     #     context: .
     #     tags: devops_assessment:latest
     #     push: false
+
+    - name: Check Docker Status
+      run: |
+        # Check if the Docker daemon is running
+        sudo systemctl status docker
     
     - name: Build Docker Image
       run: |
