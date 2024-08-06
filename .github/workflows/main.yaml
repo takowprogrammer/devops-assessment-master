@@ -8,10 +8,16 @@ jobs:
   build:
 
     runs-on: self-hosted
-    #container:
-    #  image: maven:3.6.3-jdk-11
+    # Enable GitHub runner reuse
+    continue-on-error: true
 
     steps:
+
+    - name: Set REPO_URL
+      run: |
+        REPO_URL=https://github.com/${{ github.repository }}.git
+        echo "REPO_URL=$REPO_URL" >> $GITHUB_OUTPUT
+
     - name: Checkout repository
       uses: actions/checkout@v2
 
