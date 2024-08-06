@@ -86,13 +86,15 @@ jobs:
     # - name: Check Docker version
     #   # needs: Install Docker
     #   run: docker version
-    
-    - name: Check Docker daemon user
-      run: ps aux | grep dockerd | grep root
 
-    - name: Set up Docker
-      uses: crazy-max/ghaction-setup-docker@v3
-    
+    - name: Install Docker
+      run: |
+        # Install Docker
+        sudo apt-get update
+        sudo apt-get install -y docker.io
+        #Add current user to the docker group
+        sudo usermod -aG docker $USER
+
     - name: Build Docker Image
       run: |
        sudo docker build -t devops_assessment:latest .
