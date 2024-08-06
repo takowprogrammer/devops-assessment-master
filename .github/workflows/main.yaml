@@ -62,10 +62,10 @@ jobs:
         repository: "${{ github.event.repository.name }}"
         login: "${{ secrets.DOCKER_USERNAME }}"
         password: "${{ secrets.DOCKER_PASSWORD }}"
-
-    # outputs:
-    #    image: ${{ steps.build.outputs.image }}
-    #    tag: ${{ steps.build.outputs.tag }}
+        
+       outputs:
+         image: ${{ steps.build.outputs.image }}
+         tag: ${{ steps.build.outputs.tag }}
 
      - name: Set up python for Ansible
        uses: actions/setup-python@v4
