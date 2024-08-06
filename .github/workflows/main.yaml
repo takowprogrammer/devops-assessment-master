@@ -108,6 +108,11 @@ jobs:
     #   env:
     #     DOCKER_HOST: unix:///var/run/docker.sock
 
+    - name: Start Docker Daemon
+      run: |
+        # Start the Docker daemon
+        sudo systemctl start docker
+
     - name: Set up Docker Build Action
       uses: docker/setup-buildx-action@v3
 
