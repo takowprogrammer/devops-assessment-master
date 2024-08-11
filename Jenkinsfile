@@ -2,16 +2,17 @@ pipeline {
     agent any
     
     tools {
-        jdk 'JDK11'
+        jdk 'JDK'
         maven 'Maven3'
-        git 'Git'
+        git 'Default'
         ansible 'Ansible'
+        dockerTool 'Docker'
      }
     
     environment {
-        JAVA_HOME = tool name: 'JDK11', type: 'jdk'
+        JAVA_HOME = tool name: 'JDK', type: 'jdk'
         MAVEN_HOME = tool name: 'Maven3', type: 'maven'
-        DOCKER_CREDENTIALS_ID = 'dGFrb3d0YWtvdzpSU0JnaEVTSDNYd1BzLzg='
+        DOCKER_CREDENTIALS_ID = 'docker-hub-credentials'
     }
 
     parameters {
@@ -23,7 +24,8 @@ pipeline {
             steps {
                 script {
                     def branch = params.BRANCH
-                    git url: 'https://github.com/takowprogrammer/devops-assessment-master.git', branch: branch
+                    git url: 'https://github.com/takowprogrammer/devops-assessment-master.git', branch: branch, credentialsId: 'git-cred'
+                }
             }
         }
 
@@ -57,7 +59,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    docker.build("takowtakow/test-repo/devops-assessment:latest")
+                    docker.build("takowtakow/test-repo:deveops-assessment")
                 }
             }
         }
@@ -66,7 +68,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
-                        docker.image("takowtakow/test-repo/devops-assessment:latest").push()
+                        docker.image("takowtakow/test-repo:deveops-assessment").push()
                     }
                 }
             }
