@@ -23,8 +23,7 @@ pipeline {
             steps {
                 script {
                     def branch = params.BRANCH
-                    git url: 'https://github.com/takowprogrammer/devops-assessment-master.git', branch: branch, credentialsId: '80da8d62-d653-41e9-8bab-3482edf5c9fc'
-                }
+                    git url: 'https://github.com/takowprogrammer/devops-assessment-master.git', branch: branch
             }
         }
 
