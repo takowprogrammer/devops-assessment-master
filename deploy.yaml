@@ -4,8 +4,8 @@
   
     - name: Deploy Application
       docker_container:
-        name: Java Assessment
-        image: takowtakow/test-repo/devops-assessment:latest
+        name: Devops Assessment
+        image: takowtakow/test-repo:deveops-assessment
         state: started
         ports:
           - "8080:8080"
