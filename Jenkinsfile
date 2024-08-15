@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'jenkins-dind:latest'
+            image 'jenkins-docker:latest'
             // remoteFs '/var/run/docker.sock:/var/run/docker.sock'
             // args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
