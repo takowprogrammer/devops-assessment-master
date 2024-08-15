@@ -2,7 +2,8 @@ pipeline {
     agent {
         dockerContainer {
             image 'jenkins-docker:latest'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
+            remoteFs '/var/run/docker.sock:/var/run/docker.sock'
+            // args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
     
