@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker {
+        dockerContainer {
             image 'jenkins-dind:latest'
             args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
