@@ -1,5 +1,8 @@
 pipeline {
-    agent any
+    docker {
+            image 'jenkins-dind:latest'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
     
     tools {
         jdk 'JDK'
