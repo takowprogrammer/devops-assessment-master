@@ -2,7 +2,7 @@ pipeline {
     agent {
         dockerContainer {
             image 'jenkins-dind:latest'
-            dockerArgs '-v /var/run/docker.sock:/var/run/docker.sock'
+            // dockerArgs '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
     
